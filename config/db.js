@@ -13,14 +13,16 @@ const connectDB = async () => {
   try {
     // Koneksi ke MongoDB
     await mongoose.connect(process.env.MONGO_URI);
-
     console.log("MongoDB Connected Successfully...");
   } catch (err) {
     console.error("MongoDB Connection Error:", err.message);
 
     // Graceful shutdown
-    await mongoose.connection.close();
-    process.exit(1); // Exit process with failure
+    if (mongoose.connection.readyState !== 0) {
+      await mongoose.connection.close();
+    }
+
+    throw err; // Throw error agar bisa ditangani di server.js
   }
 };
 

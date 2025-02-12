@@ -34,16 +34,6 @@ const HomePage = () => {
   return (
     <>
       <main className="min-h-[80vh] max-w-screen-md mx-auto px-4 mt-8 flex flex-col items-center">
-        {/* <div className="pb-20 mx-auto text-center flex flex-col items-center max-w-3xl">
-          <h1 className="text-4xl font-bold tracking-tighter text-gray-900 sm:text-4xl">
-            Become a trend-setter with us.
-          </h1>
-          <p className="mt-6 text-lg max-w-prose text-muted-foreground">
-            We are a community of like-minded individuals who are passionate
-            about creating a positive impact on the world.
-          </p>
-        </div> */}
-
         <Carousel className="w-full md:w-[1200px] cursor-pointer">
           <CarouselContent>
             {contentData.map((item) => (
