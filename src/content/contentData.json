@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "title": "Judul 1",
+    "imageUrl": "/img/hana.png",
+    "description": "Deskripsi 1"
+  },
+  {
+    "id": 2,
+    "title": "Judul 2",
+    "imageUrl": "https://picsum.photos/1201",
+    "description": "Deskripsi 2"
+  },
+  {
+    "id": 3,
+    "title": "Judul 3",
+    "imageUrl": "https://picsum.photos/1202",
+    "description": "Deskripsi 3"
+  }
+]
+

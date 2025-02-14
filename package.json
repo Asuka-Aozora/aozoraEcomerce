@@ -12,6 +12,7 @@
   "dependencies": {
     "@radix-ui/react-separator": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.2",
+    "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
@@ -20,6 +21,7 @@
     "express": "^4.21.2",
     "framer-motion": "^12.4.2",
     "lucide-react": "^0.475.0",
+    "mongodb": "^6.13.0",
     "mongoose": "^8.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

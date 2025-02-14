@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import Item from "./model/schema.js";
 
 // Load environment variables
 dotenv.config();
@@ -46,6 +47,27 @@ async function startServer() {
     process.exit(1); // Exit with failure
   }
 }
+
+app.get("/api/items", async (req, res) => {
+  try {
+    const items = await Item.find(); 
+    res.status(200).json(items);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch items" });
+  }
+});
+
+app.post("/api/items", async (req, res) => {
+  try {
+    const newItem = new Item(req.body); // Buat instance baru dari model Item
+    const savedItem = await newItem.save(); // Simpan instance baru ke mongodb
+    res.status(201).json(savedItem); // kirim response dengan data yang disimpan
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Failed to save item to the database" });
+  }
+})
 
 startServer();
 

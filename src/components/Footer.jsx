@@ -8,9 +8,9 @@ const Footer = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="bg-white text-gray-900 py-6 px-4 text-center"
+      className="bg-white text-gray-900 py-6 px-4 text-center border-t border-gray-200 pt-4 w-full mt-5"
     >
-      <div className="max-w-4xl mx-auto flex flex-col items-center gap-4">
+      <div className="max-w-4xl mx-auto flex flex-col items-center gap-4 ">
         <h2 className="text-lg font-semibold text-gray-900">Stay Connected</h2>
         <div className="flex gap-4 text-xl text-gray-900">
           <motion.a
