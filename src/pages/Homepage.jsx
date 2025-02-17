@@ -70,21 +70,23 @@ const HomePage = () => {
           <CarouselPrevious className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 hover:bg-slate-200" />
           <CarouselNext className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 hover:bg-slate-200" />
         </Carousel>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-          {loading ? (
-            <div className="flex flex-col items-center justify-center min-h-screen">
-              <div className="relative w-48 h-48">
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="spinner-border animate-spin inline-block w-16 h-16 border-b-2 border-gray-900 rounded-full"></div>
+        <div className="mt-8">
+          <h1 className="text-2xl font-bold mb-4">Best Seller</h1>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+            {loading ? (
+              <div className="flex flex-col items-center justify-center min-h-screen">
+                <div className="relative w-48 h-48">
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="spinner-border animate-spin inline-block w-16 h-16 border-b-2 border-gray-900 rounded-full"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : error ? (
-            <p>{error}</p>
-          ) : (
-            productsList
-          )}
+            ) : error ? (
+              <p>{error}</p>
+            ) : (
+              productsList
+            )}
+          </div>
         </div>
       </main>
     </>

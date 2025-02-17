@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Button } from "./ui/button";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <motion.footer
       initial={{ opacity: 0, y: 20 }}
@@ -43,5 +43,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
 

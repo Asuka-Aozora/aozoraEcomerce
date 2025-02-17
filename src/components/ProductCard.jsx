@@ -22,6 +22,10 @@ export const ProductCard = ({ imageUrl, productName, price, stock, productId }) 
             </p> */}
         <p className="text-muted-foreground">In stock: {stock}</p>
       </Link>
+
+      <div>
+        
+      </div>
     </div>
   );
 };
