@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "../lib/axios";
 
 const useFetch = () => {
   const [data, setData] = useState(null); 
@@ -11,7 +11,7 @@ const useFetch = () => {
       setLoading(true);
       setError(null);
 
-      const response = await axios({
+      const response = await axiosInstance({
         url,
         method,
         data: body,

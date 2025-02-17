@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
-const Banner = () => {
+const Banner = ({ contentData }) => {
+
   return (
     <Carousel className="w-full md:w-[1200px] cursor-pointer">
       <CarouselContent>
