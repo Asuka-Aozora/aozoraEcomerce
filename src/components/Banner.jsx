@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel";
 
 const Banner = ({ contentData }) => {
-
   return (
     <Carousel className="w-full md:w-[1200px] cursor-pointer">
       <CarouselContent>
@@ -21,6 +26,6 @@ const Banner = ({ contentData }) => {
       <CarouselNext className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 hover:bg-slate-200" />
     </Carousel>
   );
-}
+};
 
-export default Banner
+export default Banner;

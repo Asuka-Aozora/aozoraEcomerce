@@ -11,6 +11,7 @@ import contentData from "@/content/contentData.json";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
 import Banner from "../components/Banner";
+import Spinner from "../components/spinner";
 
 
 const HomePage = () => {
@@ -53,41 +54,21 @@ const HomePage = () => {
   });
 
   return (
-    <>
-      <main className="min-h-[80vh] max-w-screen-md mx-auto px-4 mt-8 flex flex-col items-center">
-        {loading ? (
-          <div className="flex flex-col items-center justify-center min-h-screen">
-            <div className="relative w-48 h-48">
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="spinner-border animate-spin inline-block w-16 h-16 border-b-2 border-gray-900 rounded-full"></div>
-              </div>
+    <main className="min-h-[80vh] max-w-screen-md mx-auto px-4 mt-8 flex flex-col items-center">
+      {loading ? <Spinner /> : error ? (
+        <p className="text-center text-red-600">{error}</p>
+      ) : (
+        <>
+          <Banner contentData={contentData} />
+          <div className="mt-8">
+            <h1 className="text-2xl font-bold mb-4">Best Seller</h1>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+              {productsList}
             </div>
           </div>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <Banner contentData={contentData} />
-        )}
-        <div className="mt-8">
-          <h1 className="text-2xl font-bold mb-4">Best Seller</h1>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-            {loading ? (
-              <div className="flex flex-col items-center justify-center min-h-screen">
-                <div className="relative w-48 h-48">
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="spinner-border animate-spin inline-block w-16 h-16 border-b-2 border-gray-900 rounded-full"></div>
-                  </div>
-                </div>
-              </div>
-            ) : error ? (
-              <p>{error}</p>
-            ) : (
-              productsList
-            )}
-          </div>
-        </div>
-      </main>
-    </>
+        </>
+      )}
+    </main>
   );
 };
 

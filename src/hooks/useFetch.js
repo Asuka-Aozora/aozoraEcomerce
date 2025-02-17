@@ -2,9 +2,9 @@ import { useState } from "react";
 import { axiosInstance } from "../lib/axios";
 
 const useFetch = () => {
-  const [data, setData] = useState(null); 
-  const [loading, setLoading] = useState(false); 
-  const [error, setError] = useState(null); 
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const request = async (url, method = "GET", body = null, options = {}) => {
     try {
@@ -19,12 +19,12 @@ const useFetch = () => {
       });
 
       setData(response.data);
-      return response.data; 
+      return response.data;
     } catch (err) {
       setError(
         err.message || "An error occurred while processing the request."
       );
-      throw err; 
+      throw err;
     } finally {
       setLoading(false);
     }
