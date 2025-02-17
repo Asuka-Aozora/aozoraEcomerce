@@ -23,6 +23,13 @@ app.use((err, req, res, next) => {
   });
 });
 
+
+
+app.get("/test", (req, res) => {
+  console.log("Test endpoint called");
+  res.send("Test successful");
+});
+
 // Start server
 async function startServer() {
   try {
@@ -55,6 +62,23 @@ app.get("/api/items", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch items" });
+  }
+});
+
+// Routes for GET /products/:productId
+app.get("/products/:productId", async (req, res) => {
+  try {
+    const { productId } = req.params; // Ambil productId dari URL
+    const product = await Item.findOne({ id: productId }); // Cari produk berdasarkan id
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json(product); // Kirim data produk sebagai respons
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch product" });
   }
 });
 

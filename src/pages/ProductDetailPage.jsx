@@ -10,7 +10,7 @@ const ProductDetailPage = () => {
     const [productData, setProductCard] = useState(null);
     const [loading, setLoading] = useState(true);
     const { productId } = useParams();
-    console.log("ID from URL:", productId);
+    // console.log("ID from URL:", productId);
 
     useEffect(() => {
       const fetchProduct = async () => {
@@ -19,9 +19,20 @@ const ProductDetailPage = () => {
           console.log("Request ke URL:", `/products/${productId}`);
           const response = await axiosInstance.get(`/products/${productId}`);
           setProductCard(response.data);
-          console.log(response);
+          console.log(response.data);
         } catch (error) {
-          console.error("error fetching product", error);
+          console.error("Error fetching product:", error);
+          if (error.response) {
+            console.error(
+              "Server responded with status:",
+              error.response.status
+            );
+            console.error("Response data:", error.response.data);
+          } else if (error.request) {
+            console.error("No response received from server:", error.request);
+          } else {
+            console.error("Error message:", error.message);
+          }
         } finally {
           setTimeout(() => setLoading(false), 500);
         }
@@ -40,50 +51,61 @@ const ProductDetailPage = () => {
     <div>
       <main className="min-h-screen max-w-screen-lg mx-auto px-4 mt-8">
         <div className="grid grid-cols-2 gap-8">
-          {loading ? (
-            <Skeleton className="w-full h-[582px]" />
-          ) : (
-            <img src={imageUrl} alt={name} className="w-full" />
-          )}
-
-          <div className="flex flex-col gap-1 justify-center">
+          {/* Gambar Produk */}
+          <div>
             {loading ? (
-              <Skeleton className="w-[230px] h-[28px]" />
+              <Skeleton className="w-full h-[582px]" />
             ) : (
+              <img src={imageUrl} alt={name} className="w-full" />
+            )}
+            {/* Thumbnail Gambar */}
+            <div className="flex gap-2 mt-4">
+              <img
+                src="/thumbnail1.jpg"
+                alt="Thumbnail 1"
+                className="w-16 h-16 cursor-pointer"
+              />
+              <img
+                src="/thumbnail2.jpg"
+                alt="Thumbnail 2"
+                className="w-16 h-16 cursor-pointer"
+              />
+              <img
+                src="/thumbnail3.jpg"
+                alt="Thumbnail 3"
+                className="w-16 h-16 cursor-pointer"
+              />
+              <img
+                src="/thumbnail4.jpg"
+                alt="Thumbnail 4"
+                className="w-16 h-16 cursor-pointer"
+              />
+            </div>
+          </div>
+
+          {/* Detail Produk */}
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between items-center">
               <h1 className="text-xl">{name}</h1>
-            )}
-
-            {loading ? (
-              <Skeleton className="w-[340px] h-[45px]" />
-            ) : (
-              <h3 className="text-3xl font-bold">
-                Rp {Number(price).toLocaleString("id-ID")}
-              </h3>
-            )}
-
-            {loading ? (
-              <Skeleton className="w-[340px] h-[110px] mt-4" />
-            ) : (
-              <p className="text-sm text-muted-foreground mt-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Corporis nisi, unde cupiditate praesentium consequuntur in ab
-                perferendis architecto perspiciatis, sint iure id. Expedita,
-                nesciunt magnam.
-              </p>
-            )}
-
-            <div className="flex items-center gap-8 mt-6">
+              <div className="flex items-center">
+                <span>Terjual 16</span>
+                <span className="ml-2">•</span>
+                <span className="ml-2">⭐ 5 (6 rating)</span>
+              </div>
+            </div>
+            <h3 className="text-3xl font-bold">
+              Rp {Number(price).toLocaleString("id-ID")}
+            </h3>
+            <p className="text-sm text-muted-foreground mt-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nulla atque quisquam nesciunt soluta iste, laboriosam magnam nobis rem laudantium saepe vitae id esse doloremque animi beatae! Neque, est harum.</p>
+            <div className="flex items-center gap-4">
               <Button size="icon" variant="ghost">
                 <IoIosRemove className="h-6 w-6" />
               </Button>
-
               <p className="text-lg font-bold">0</p>
-
               <Button size="icon" variant="ghost">
                 <IoIosAdd className="h-6 w-6" />
               </Button>
             </div>
-
             <div className="flex items-center mt-4 gap-4">
               <Button className="w-full" size="lg">
                 Add to cart
@@ -91,6 +113,26 @@ const ProductDetailPage = () => {
               <Button size="icon" variant="ghost">
                 <IoHeartOutline className="h-6 w-6" />
               </Button>
+            </div>
+            {/* Tabs Detail, Spesifikasi, Info Penting */}
+            <div className="mt-8">
+              <ul className="flex border-b">
+                <li className="mr-12 pb-3 border-b-2 border-green-500">
+                  <a href="#detail">Detail</a>
+                </li>
+                <li className="mr-12 pb-3">
+                  <a href="#spesifikasi">Spesifikasi</a>
+                </li>
+                <li className="pb-3">
+                  <a href="#info-penting">Info Penting</a>
+                </li>
+              </ul>
+              <div id="detail" className="mt-4">
+                <p>Kondisi: Baru</p>
+                <p>Min. Pemesanan: 1 Buah</p>
+                <p>Etalase: COC GAMERS BOX</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At repellat, adipisci quisquam voluptatum libero id reprehenderit autem ducimus ipsam aspernatur!</p>
+              </div>
             </div>
           </div>
         </div>
