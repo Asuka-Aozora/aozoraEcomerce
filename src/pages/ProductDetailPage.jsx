@@ -8,7 +8,8 @@ import { IoHeartOutline } from "react-icons/io5";
 import useFetch from "../hooks/useFetch";
 
 const ProductDetailPage = () => {
-  const { data: productData, loading, error, request } = useFetch()
+  const { data: productData, loading, error, request } = useFetch();
+  const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();
 
   useEffect(() => {
@@ -22,6 +23,24 @@ const ProductDetailPage = () => {
   }
 
   const { discount, imageUrl, name, price, stock } = productData;
+
+  const handleQuantityChange = (action) => {
+    if (action === "increment" && quantity < stock) {
+      setQuantity(quantity + 1);
+    } else if (action === "decrement" && quantity > 0) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const stockClass = () => {
+    if (stock === 0) {
+      return "text-red-500";
+    } else if (stock < 10) {
+      return "text-yellow-500";
+    } else {
+      return "text-green-500";
+    }
+  };
 
   return (
     <div>
@@ -63,10 +82,22 @@ const ProductDetailPage = () => {
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
               <h1 className="text-xl">{name}</h1>
-              <div className="flex items-center">
-                <span>Terjual 16</span>
-                <span className="ml-2">•</span>
-                <span className="ml-2">⭐ 5 (6 rating)</span>
+              <div className="flex items-center space-x-2 text-sm text-gray-600">
+                {/* Terjual */}
+                <div className="flex items-center">
+                  <span className="text-primary font-semibold">Terjual</span>
+                  <span className="ml-1 text-gray-500 font-semibold">100+</span>
+                </div>
+
+                {/* Separator */}
+                <span className="text-black">•</span>
+
+                {/* Rating */}
+                <div className="flex items-center">
+                  <span className="text-yellow-500">⭐</span>
+                  <span className="ml-1 font-medium">5</span>
+                  <span className="ml-1 text-gray-500">(6 rating)</span>
+                </div>
               </div>
             </div>
             <h3 className="text-3xl font-bold">
@@ -79,13 +110,24 @@ const ProductDetailPage = () => {
               est harum.
             </p>
             <div className="flex items-center gap-4">
-              <Button size="icon" variant="ghost">
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => handleQuantityChange("decrement")}
+                disabled={quantity <= 0}
+              >
                 <IoIosRemove className="h-6 w-6" />
               </Button>
-              <p className="text-lg font-bold">0</p>
-              <Button size="icon" variant="ghost">
+              <p className="text-lg font-bold">{quantity}</p>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => handleQuantityChange("increment")}
+                disabled={quantity >= stock}
+              >
                 <IoIosAdd className="h-6 w-6" />
               </Button>
+              <span className={stockClass()}>{stock} in stock</span>
             </div>
             <div className="flex items-center mt-4 gap-4">
               <Button className="w-full" size="lg">
