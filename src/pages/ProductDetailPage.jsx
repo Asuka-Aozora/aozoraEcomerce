@@ -10,7 +10,6 @@ import useFetch from "../hooks/useFetch";
 const ProductDetailPage = () => {
   const { data: productData, loading, error, request } = useFetch()
   const { productId } = useParams();
-  // console.log("ID from URL:", productId);
 
   useEffect(() => {
     request(`/products/${productId}`, "GET");
