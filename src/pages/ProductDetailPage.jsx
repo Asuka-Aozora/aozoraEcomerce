@@ -84,19 +84,17 @@ const ProductDetailPage = () => {
               <h1 className="text-xl">{name}</h1>
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 {/* Terjual */}
-                <div className="flex items-center">
+                <div className="flex items-center space-x-1">
                   <span className="text-primary font-semibold">Terjual</span>
-                  <span className="ml-1 text-gray-500 font-semibold">100+</span>
+                  <span className="font-semibold">100+</span>
                 </div>
-
                 {/* Separator */}
-                <span className="text-black">•</span>
-
+                <span>•</span>
                 {/* Rating */}
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2">
                   <span className="text-yellow-500">⭐</span>
-                  <span className="ml-1 font-medium">5</span>
-                  <span className="ml-1 text-gray-500">(6 rating)</span>
+                  <span className="font-medium">5</span>
+                  <span className="text-gray-500 text-sm ">(6 rating)</span>
                 </div>
               </div>
             </div>
