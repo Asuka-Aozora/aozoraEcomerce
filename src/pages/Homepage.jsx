@@ -1,7 +1,6 @@
 import { ProductCard } from "../components/ProductCard";
 import contentData from "@/content/contentData.json";
-import { useEffect, useState } from "react";
-import { axiosInstance } from "@/lib/axios";
+import { useEffect } from "react";
 import Banner from "../components/Banner";
 import Spinner from "../components/spinner";
 import useFetch from "../hooks/useFetch";
