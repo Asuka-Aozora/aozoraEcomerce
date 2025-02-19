@@ -53,7 +53,7 @@ const HomePage = () => {
               {productsList}
             </div>
             <div className="mt-8 flex justify-center">
-              <Button variant="outline" size="sm" className="text-sm" disabled={visibleProducts >= products?.length} onClick={handleLoadMore}>
+              <Button variant="outline" size="sm" className="text-sm text-red-600" disabled={visibleProducts >= products?.length} onClick={handleLoadMore}>
                 Load More
               </Button>
             </div>
