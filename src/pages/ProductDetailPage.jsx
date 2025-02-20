@@ -11,6 +11,7 @@ const ProductDetailPage = () => {
   const { data: productData, loading, error, request } = useFetch();
   const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();
+  
 
   useEffect(() => {
     request(`/products/${productId}`, "GET");
@@ -27,7 +28,7 @@ const ProductDetailPage = () => {
   const handleQuantityChange = (action) => {
     if (action === "increment" && quantity < stock) {
       setQuantity(quantity + 1);
-    } else if (action === "decrement" && quantity > 0) {
+    } else if (action === "decrement" && quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
@@ -112,7 +113,7 @@ const ProductDetailPage = () => {
                 size="icon"
                 variant="ghost"
                 onClick={() => handleQuantityChange("decrement")}
-                disabled={quantity <= 0}
+                disabled={quantity <= 1}
               >
                 <IoIosRemove className="h-6 w-6" />
               </Button>
@@ -128,7 +129,7 @@ const ProductDetailPage = () => {
               <span className={stockClass()}>{stock} in stock</span>
             </div>
             <div className="flex items-center mt-4 gap-4">
-              <Button className="w-full" size="lg">
+              <Button disabled={stock <= 0} className="w-full" size="lg">
                 Add to cart
               </Button>
               <Button size="icon" variant="ghost">
