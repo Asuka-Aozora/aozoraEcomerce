@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 import jwt from "jsonwebtoken";
 import connectDB from "./config/db.js";
-import User from "./config/User.js";
+import User from "./schema/User.js";
 import Item from "./schema/Database.js";
 
 // Load environment variables
