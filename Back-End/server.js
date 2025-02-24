@@ -5,7 +5,8 @@ import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 import jwt from "jsonwebtoken";
 import connectDB from "./config/db.js";
-import Item from "./model/schema.js";
+import User from "./config/User.js";
+import Item from "./schema/Database.js";
 
 // Load environment variables
 dotenv.config();
@@ -87,7 +88,7 @@ app.post("/signup", (req, res) => {
     user
       .save() // saving the user to mongodb
       .then((u) => {
-        return res.status(200).json(formatDatatoSend(u));
+        return res.status(200).json(formatDataToSend(u));
       }) // sending the response
       .catch((err) => {
         if (err.code == 11000) {
@@ -119,7 +120,7 @@ app.post("/signin", (req, res) => {
         if (!result) {
           return res.status(403).json({ error: "Incorrect password" }); // if password is incorrect
         } else {
-          return res.status(200).json(formatDatatoSend(user)); // if password is correct then sending the response
+          return res.status(200).json(formatDataToSend(user)); // if password is correct then sending the response
         }
       }); // comparing the password with the hashed password from database
     })
