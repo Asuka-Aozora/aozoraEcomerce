@@ -55,16 +55,84 @@ const generateUsername = async (email) => {
   return username;
 };
 
+app.post("/signup", (req, res) => {
+  let { fullname, email, password } = req.body; // getting the data from frontend
 
+  // validating the data from frontend
+  if (fullname.length < 3) {
+    return res
+      .status(403)
+      .json({ error: "Fullname must be at least 3 letters long" });
+  }
+  if (!email.length) {
+    return res.status(403).json({ error: "Enter Email" });
+  }
+  if (!emailRegex.test(email)) {
+    return res.status(403).json({ error: "Email is invalid" });
+  }
+  if (!passwordRegex.test(password)) {
+    return res.status(403).json({
+      error:
+        "Password should be 6 to 20 characters long with a numeric, 1 lowercase and 1 uppercase letters",
+    });
+  }
 
+  bcrypt.hash(password, 10, async (err, hashed_password) => {
+    let username = await generateUsername(email); // generating the username
 
+    let user = new User({
+      personal_info: { fullname, email, password: hashed_password, username },
+    }); // creating the user
+
+    user
+      .save() // saving the user to mongodb
+      .then((u) => {
+        return res.status(200).json(formatDatatoSend(u));
+      }) // sending the response
+      .catch((err) => {
+        if (err.code == 11000) {
+          return res.status(500).json({ error: "Email already exist" });
+        } // if email already exist
+
+        return res.status(500).json({ error: err.message }); // if any other error
+      });
+  }); // hashing the password
+});
+
+app.post("/signin", (req, res) => {
+  let { email, password } = req.body; // getting the data from frontend
+
+  // validating the data from frontend
+  User.findOne({ "personal_info.email": email }) // finding the user
+    .then((user) => {
+      if (!user) {
+        return res.status(403).json({ error: "Email not found" });
+      } // if user not found
+
+      bcrypt.compare(password, user.personal_info.password, (err, result) => {
+        if (err) {
+          return res
+            .status(403)
+            .json({ error: "error occurred while login please try again" });
+        } // if any error
+
+        if (!result) {
+          return res.status(403).json({ error: "Incorrect password" }); // if password is incorrect
+        } else {
+          return res.status(200).json(formatDatatoSend(user)); // if password is correct then sending the response
+        }
+      }); // comparing the password with the hashed password from database
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ error: err.message });
+    }); // if any error
+});
 
 app.get("/test", (req, res) => {
   console.log("Test endpoint called");
   res.send("Test successful");
 });
-
-
 
 // Routes for GET /products/:productId
 app.get("/products/:productId", async (req, res) => {
@@ -92,7 +160,7 @@ app.post("/api/items", async (req, res) => {
     console.log(err);
     res.status(500).json({ error: "Failed to save item to the database" });
   }
-})
+});
 
 // Start server
 async function startServer() {
@@ -121,7 +189,7 @@ async function startServer() {
 
 app.get("/api/items", async (req, res) => {
   try {
-    const items = await Item.find(); 
+    const items = await Item.find();
     res.status(200).json(items);
   } catch (err) {
     console.error(err);
